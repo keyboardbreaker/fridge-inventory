@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import supabase from "../../../utils/supabase";
+import Loader from "../loader";
 
 type FoodItem = {
   id: string;
@@ -53,7 +54,7 @@ const Fridge = () => {
 		loadFridge();
 	}, [fridgeId]);
 
-  if (!fridge) return <p>Loading…</p>;
+  if (!fridge) return <Loader/>;
 
   return (
     <>

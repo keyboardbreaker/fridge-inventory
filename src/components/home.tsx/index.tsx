@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import supabase from '../../../utils/supabase';
 import type { Fridge } from '../../types/fridge';
 import { Link } from 'react-router';
+import Loader from '../loader';
 
 const Home = () => {
 	const [fridges, setFridges] = useState<Fridge[]>([]);
@@ -23,7 +24,7 @@ const Home = () => {
 
     getFridges()
   }, []) 
-
+	if (fridges.length === 0) return <Loader/>;
   return (
 		<div>
       <h1>Fridges</h1>

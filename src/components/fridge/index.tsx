@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import supabase from "../../../utils/supabase";
 import Loader from "../loader";
+import style from "./fridge.module.css";
 
 type FoodItem = {
   id: string;
@@ -59,16 +60,16 @@ const Fridge = () => {
   return (
     <>
       <h1>{fridge.name}</h1>
-      <ul>
+      <ul className={style.fridgeContainer}>
 				{fridge.food_items.length === 0 && (
-          <li>No food yet</li>
-        )}
+					<li>The fridge is empty</li>
+				)}
 
 				{fridge.food_items.map((item) => (
-          <li key={item.id}>
-            {item.name} — {item.share_status}
-          </li>
-        ))}
+					<li key={item.id}>
+						{item.name} — {item.share_status}
+					</li>
+				))}
 			</ul>
     </>
   );

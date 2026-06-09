@@ -27,7 +27,7 @@ const Home = () => {
 	if (fridges.length === 0) return <Loader/>;
   return (
 		<div>
-      <h1>Fridges</h1>
+      <h1>Available Fridges</h1>
       <p>Select which fridge you want to manage</p>
       <ul>
         {fridges.map((fridge) => (

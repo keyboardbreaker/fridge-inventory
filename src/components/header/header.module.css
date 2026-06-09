@@ -1,0 +1,15 @@
+.header {
+    width: 100%;
+    background: linear-gradient(
+        to bottom,
+        #2c0a2c,
+        #5a0c5a
+    );
+    padding: 1rem 0;
+}
+
+.headerContent{
+    max-width: 50rem;
+    margin: 0 auto;
+    text-align: center;
+}

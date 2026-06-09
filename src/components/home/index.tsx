@@ -3,6 +3,8 @@ import supabase from '../../../utils/supabase';
 import type { Fridge } from '../../types/fridge';
 import { Link } from 'react-router';
 import Loader from '../loader';
+import Container from '../container';
+import style from "./home.module.css";
 
 const Home = () => {
 	const [fridges, setFridges] = useState<Fridge[]>([]);
@@ -26,19 +28,19 @@ const Home = () => {
   }, []) 
 	if (fridges.length === 0) return <Loader/>;
   return (
-		<div>
+		<Container>
       <h1>Available Fridges</h1>
       <p>Select which fridge you want to manage</p>
       <ul>
         {fridges.map((fridge) => (
-            <li key={fridge.id}>
+            <li className={style.listItem} key={fridge.id}>
                 <Link to={`/fridge/${fridge.id}`}>
                     {fridge.name}
                 </Link>
             </li>
         ))}
       </ul>
-    </div>
+    </Container>
   );
 }
 

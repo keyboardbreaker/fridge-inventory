@@ -2,3 +2,21 @@
 	border: 1px solid white;
 	list-style: none;
 }
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  min-width: 400px;
+}

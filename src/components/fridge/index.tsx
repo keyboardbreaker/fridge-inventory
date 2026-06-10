@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import supabase from "../../../utils/supabase";
 import Loader from "../loader";
 import style from "./fridge.module.css";
+import AddFoodModal from "../addFoodItem";
 
 type FoodItem = {
   id: string;
@@ -22,57 +23,84 @@ type FridgeWithFood = {
 const Fridge = () => {
 	const { fridgeId } = useParams<{fridgeId : string}>();
 	const [fridge, setFridge] = useState<FridgeWithFood | null> (null);
+	const [showModal, setShowModal] = useState(false);
 
-	useEffect(() => {
-		if(!fridgeId) return;
+	const loadFridge = async () => {
+		if (!fridgeId) return;
 
-		async function loadFridge() {
-			const { data, error } = await supabase
-				.from("fridges")
-				.select(`
+		const { data, error } = await supabase
+			.from("fridges")
+			.select(`
+				id,
+				name,
+				food_items (
 					id,
 					name,
-					food_items (
-						id,
-						name,
-						share_status,
-						best_before_date,
-						quantity,
-						unit
-					),
-					created_at
-				`)
-				.eq("id", fridgeId)
-				.single();
-			
-			if(error) {
-				console.error(error);
-				return;
-			}
-
-			setFridge(data);
+					share_status,
+					best_before_date,
+					quantity,
+					unit
+				),
+				created_at
+			`)
+			.eq("id", fridgeId)
+			.single();
+		
+		if(error) {
+			console.error(error);
+			return;
 		}
-		loadFridge();
+
+		setFridge(data);
+	}
+
+	useEffect(() => {
+		void loadFridge();
 	}, [fridgeId]);
 
-  if (!fridge) return <Loader/>;
+	if (!fridge) return <Loader/>;
 
-  return (
-    <>
-      <h1>{fridge.name}</h1>
-      <ul className={style.fridgeContainer}>
-				{fridge.food_items.length === 0 && (
-					<li>The fridge is empty</li>
-				)}
+	return (
+		<>
+			<button
+				onClick={() => setShowModal(true)}
+				>
+				Add Food
+			</button>
+			{showModal && (
+				<div className={style.backdrop}>
+					<div className={style.modal}>
+					<button
+						onClick={() => setShowModal(false)}
+					>
+						Close
+					</button>
 
-				{fridge.food_items.map((item) => (
-					<li key={item.id}>
-						{item.name} — {item.share_status}
-					</li>
-				))}
+					<AddFoodModal
+						fridgeId={fridge.id}
+						onFoodAdded={async () => {
+							await loadFridge();
+							setShowModal(false);
+						}}
+					/>
+					</div>
+				</div>
+			)}
+
+			<h1>{fridge.name}</h1>
+			<ul className={style.fridgeContainer}>
+					{fridge.food_items.length === 0 && (
+						<li>The fridge is empty</li>
+					)}
+
+					{fridge.food_items.map((item) => (
+						<li key={item.id}>
+							{item.name} — {item.share_status}
+						</li>
+					))}
 			</ul>
-    </>
-  );
+		</>
+	);
 }
 
 export default Fridge;

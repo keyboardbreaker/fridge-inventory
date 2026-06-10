@@ -6,23 +6,23 @@ type AddFoodModalProps = {
 };
 
 const AddFoodModal = ({ fridgeId, onFoodAdded }: AddFoodModalProps) => {
-    const [name, setName] = useState("");
+    const [name, setName] = useState<string>("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // const { data: { user }} = await supabase.auth.getUser();
+        const { data: { user }} = await supabase.auth.getUser();
 
-        // if (!user) {
-        //     alert("Please sign in");
-        //     return;
-        // }
+        if (!user) {
+            alert("Please sign in");
+            return;
+        }
 
         const { error } = await supabase
             .from("food_items")
             .insert({
                 fridge_id: fridgeId,
-                owner_id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+                owner_id: user.id,
                 name,
             });
 

@@ -1,12 +1,16 @@
 import { useState } from "react";
 import supabase from "../../../utils/supabase";
-type AddFoodModalProps = {
+import style from "./addFoodForm.module.css";
+import type { ShareStatus } from "../../types/shareStatus";
+
+type AddFoodFormProps = {
     fridgeId: string;
     onFoodAdded: () => Promise<void>;
 };
 
-const AddFoodModal = ({ fridgeId, onFoodAdded }: AddFoodModalProps) => {
+const AddFoodForm = ({ fridgeId, onFoodAdded }: AddFoodFormProps) => {
     const [name, setName] = useState<string>("");
+    const [shareStatus, setShareStatus] = useState<ShareStatus>("private");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,6 +28,7 @@ const AddFoodModal = ({ fridgeId, onFoodAdded }: AddFoodModalProps) => {
                 fridge_id: fridgeId,
                 owner_id: user.id,
                 name,
+                share_status: shareStatus
             });
 
         if (error) {
@@ -32,17 +37,28 @@ const AddFoodModal = ({ fridgeId, onFoodAdded }: AddFoodModalProps) => {
         }
 
         setName("");
+        setShareStatus("private");
         await onFoodAdded();
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className={style.form} onSubmit={handleSubmit}>
             <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your food item..."
             />
 
+            <label>Is this item sharable?
+                <select
+                    value={shareStatus}
+                    onChange={(e) => setShareStatus(e.target.value as ShareStatus)}
+                >
+                    <option value="private">Private</option>
+                    <option value="shared">Shared</option>
+                    <option value="ask">Ask</option>
+                </select>
+            </label>
             <button type="submit">
                 Add Food
             </button>
@@ -50,4 +66,4 @@ const AddFoodModal = ({ fridgeId, onFoodAdded }: AddFoodModalProps) => {
     );
 }
 
-export default AddFoodModal;
+export default AddFoodForm;

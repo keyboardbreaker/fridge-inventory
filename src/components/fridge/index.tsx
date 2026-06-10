@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import supabase from "../../../utils/supabase";
 import Loader from "../loader";
 import style from "./fridge.module.css";
-import AddFoodModal from "../addFoodItem";
+import AddFoodForm from "../addFoodForm";
+import Container from "../container";
 
 type FoodItem = {
   id: string;
@@ -23,7 +24,7 @@ type FridgeWithFood = {
 const Fridge = () => {
 	const { fridgeId } = useParams<{fridgeId : string}>();
 	const [fridge, setFridge] = useState<FridgeWithFood | null> (null);
-	const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const loadFridge = async () => {
 		if (!fridgeId) return;
@@ -62,21 +63,26 @@ const Fridge = () => {
 
 	return (
 		<>
-			<button
+			<Container>
+				<h1>{fridge.name}</h1>
+
+							<button
 				onClick={() => setShowModal(true)}
-				>
-				Add Food
+			>
+				Add New Food Item
 			</button>
 			{showModal && (
 				<div className={style.backdrop}>
 					<div className={style.modal}>
-					<button
-						onClick={() => setShowModal(false)}
-					>
-						Close
-					</button>
+						<div className={style.modalHeader}>
+						<h2>Add food Item</h2>
+						<button
+							className={style.closeButton}
+							onClick={() => setShowModal(false)}
+						>x</button>
+					</div>
 
-					<AddFoodModal
+					<AddFoodForm
 						fridgeId={fridge.id}
 						onFoodAdded={async () => {
 							await loadFridge();
@@ -86,19 +92,18 @@ const Fridge = () => {
 					</div>
 				</div>
 			)}
+				<ul className={style.fridgeContainer}>
+						{fridge.food_items.length === 0 && (
+							<li>The fridge is empty</li>
+						)}
 
-			<h1>{fridge.name}</h1>
-			<ul className={style.fridgeContainer}>
-					{fridge.food_items.length === 0 && (
-						<li>The fridge is empty</li>
-					)}
-
-					{fridge.food_items.map((item) => (
-						<li key={item.id}>
-							{item.name} — {item.share_status}
-						</li>
-					))}
-			</ul>
+						{fridge.food_items.map((item) => (
+							<li key={item.id}>
+								{item.name} — {item.share_status}
+							</li>
+						))}
+				</ul>
+			</Container>
 		</>
 	);
 }

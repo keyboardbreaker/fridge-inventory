@@ -12,14 +12,13 @@ const Header = ({ user } : HeaderProps) => {
             <div className={style.headerContent}>
                 <h1>Fridge Inventory</h1>
                 <p>Manage your items without forgetting they exist </p>
-            </div>
-            <div>
-                <span>{user.email}</span>
 
-                <button onClick={signOut}>
-                Logout
-                </button>
+                <div className={style.userDetails}>
+                    <span>{user.email}</span>
+                    <button onClick={signOut}>Logout</button>
+                </div>
             </div>
+
         </header>
     )
 }

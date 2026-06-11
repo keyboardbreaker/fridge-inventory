@@ -35,6 +35,7 @@ const App = () => {
       <Header user={user} />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/fridge/:fridgeId" element={<Fridge />} />
       </Routes>
     </BrowserRouter>

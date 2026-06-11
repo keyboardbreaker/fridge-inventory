@@ -1,6 +1,7 @@
 .fridgeContainer {
 	border: 1px solid white;
 	list-style: none;
+	margin-top: 20px;
 }
 
 .backdrop {
@@ -36,3 +37,5 @@ h2{
 .closeButton{
 	height: 100%;
 }
+
+.cellStyle{}

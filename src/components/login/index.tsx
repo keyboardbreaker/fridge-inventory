@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { signIn, signUp } from "../../../utils/auth";
+import Container from "../container";
+import { redirect } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
@@ -7,17 +9,19 @@ const Login = () => {
 
     const handleLogin = async () => {
         const { error } = await signIn(email, password);
-        if (error) console.error(error);
+        if (error) console.error(error)
+        else redirect("/home");
     }
 
     const handleSignup = async () => {
         const { error } = await signUp(email, password);
-        if (error) console.error(error);
+        if (error) console.error(error) 
+        else redirect("/home");
     }
 
     return (
-        <div>
-            <h2>Login</h2>
+        <Container>
+            <h1>Login</h1>
 
             <input
                 placeholder="email"
@@ -33,7 +37,7 @@ const Login = () => {
 
             <button onClick={handleLogin}>Login</button>
             <button onClick={handleSignup}>Sign up</button>
-        </div>
+        </Container>
     )
 
     

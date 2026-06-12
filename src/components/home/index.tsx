@@ -25,21 +25,29 @@ const Home = () => {
     }
 
     getFridges()
-  }, []) 
-	if (fridges.length === 0) return <Loader/>;
+  }, [])
   return (
 		<Container>
-      <h1>Available Fridges</h1>
-      <p>Select which fridge you want to manage</p>
-      <ul>
-        {fridges.map((fridge) => (
-            <li className={style.listItem} key={fridge.id}>
-                <Link to={`/fridge/${fridge.id}`}>
-                    {fridge.name}
-                </Link>
-            </li>
-        ))}
-      </ul>
+      {
+        fridges.length === 0 ? (
+          <div className={style.loaderContainer}>
+            <Loader/>
+          </div>
+        ) : (
+          <>
+            <h1>Available Fridges</h1>
+            <p>Select which fridge you want to manage</p>
+            <ul>
+              {fridges.map((fridge) => (
+                  <li className={style.listItem} key={fridge.id}>
+                      <Link to={`/fridge/${fridge.id}`}>
+                          {fridge.name}
+                      </Link>
+                  </li>
+              ))}
+            </ul>
+          </>
+      )}
     </Container>
   );
 }

@@ -125,7 +125,7 @@ const Fridge = () => {
 							<tr style={{ backgroundColor: 'indigo',  }}>
 								<th className={style.cellStyle}>ID</th>
 								<th className={style.cellStyle}>Name</th>
-								<th className={style.cellStyle}>Email</th>
+								<th className={style.cellStyle}>Status</th>
 								<th className={style.cellStyle}>Best before date</th>
 								<th className={style.cellStyle}>Delete?</th>
 							</tr>

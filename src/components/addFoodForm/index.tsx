@@ -11,6 +11,7 @@ type AddFoodFormProps = {
 const AddFoodForm = ({ fridgeId, onFoodAdded }: AddFoodFormProps) => {
     const [name, setName] = useState<string>("");
     const [shareStatus, setShareStatus] = useState<ShareStatus>("private");
+    const [bestBeforeDate, setBestBeforeDate] = useState<string>("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -28,7 +29,8 @@ const AddFoodForm = ({ fridgeId, onFoodAdded }: AddFoodFormProps) => {
                 fridge_id: fridgeId,
                 owner_id: user.id,
                 name,
-                share_status: shareStatus
+                share_status: shareStatus,
+                best_before_date: bestBeforeDate
             });
 
         if (error) {
@@ -59,6 +61,12 @@ const AddFoodForm = ({ fridgeId, onFoodAdded }: AddFoodFormProps) => {
                     <option value="ask">Ask</option>
                 </select>
             </label>
+            <input
+                value={bestBeforeDate}
+                onChange={(e) => setBestBeforeDate(e.target.value)}
+                placeholder="Enter item best before date..."
+                type="date"
+            />
             <button type="submit">
                 Add Food
             </button>

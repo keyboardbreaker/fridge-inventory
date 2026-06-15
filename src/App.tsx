@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import supabase from "../utils/supabase";
 import Login from "./components/login";
 import type { User } from "@supabase/supabase-js";
+import Signup from "./components/signup";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -36,6 +37,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/fridge/:fridgeId" element={<Fridge />} />
       </Routes>
     </BrowserRouter>

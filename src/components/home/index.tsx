@@ -14,7 +14,7 @@ const Home = () => {
       const { data, error } = await supabase
         .from("fridges")
         .select("*");
-
+        
       if (error) {
         console.error(error);
         return;

@@ -2,8 +2,14 @@ import { useState } from "react";
 import { signIn, signUp } from "../../../utils/auth";
 import Container from "../container";
 import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    const signUpPage = () => {
+        navigate("/signup")
+    }
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -36,7 +42,7 @@ const Login = () => {
             />
 
             <button onClick={handleLogin}>Login</button>
-            <button onClick={handleSignup}>Sign up</button>
+            <button onClick={signUpPage}>Sign up</button>
         </Container>
     )
 

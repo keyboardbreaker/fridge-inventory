@@ -1,7 +1,7 @@
 import { useState } from "react";
 import supabase from "../../../utils/supabase";
 
-export default function Signup() {
+const Signup = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -29,6 +29,12 @@ export default function Signup() {
                 last_name: lastName,
                 });
             }
+
+            await supabase.from("fridge_users").insert({
+                fridge_id: "11111111-1111-1111-1111-111111111111",
+                user_id: data.user!.id,
+                role_type: "user",
+            });
         }
 
     return (
@@ -67,3 +73,5 @@ export default function Signup() {
         </form>
     );
 }
+
+export default Signup;

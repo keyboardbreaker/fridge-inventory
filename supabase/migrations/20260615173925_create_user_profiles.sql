@@ -19,3 +19,11 @@ for all
 to authenticated
 using (id = auth.uid())
 with check (id = auth.uid());
+
+create policy "Users can view their memberships"
+on fridge_users
+for select
+to authenticated
+using (
+    user_id = auth.uid()
+);

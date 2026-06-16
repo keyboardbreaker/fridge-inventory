@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/home";
 import Fridge from "./components/fridge";
 import Header from "./components/header";
@@ -27,20 +27,27 @@ const App = () => {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  if (!user) {
-      return <Login />;
-  }
-
+console.log(user?.id);
   return (
-    <BrowserRouter>
-      <Header user={user} />
+    <>
+      {user && <Header user={user} />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/fridge/:fridgeId" element={<Fridge />} />
+        
+        {!user ? (
+          <>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/fridge/:fridgeId" element={<Fridge />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </>
+        )}
       </Routes>
-    </BrowserRouter>
+    </>
   )
 }
 export default App;

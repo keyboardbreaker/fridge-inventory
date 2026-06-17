@@ -2,6 +2,12 @@
 	border: 1px solid white;
 	list-style: none;
 	margin-top: 20px;
+	margin-inline: calc(4px * 10);
+}
+
+.fridgeTable {
+	width: 100%;
+	border-collapse: collapse;
 }
 
 .backdrop {
@@ -38,4 +44,13 @@ h2{
 	height: 100%;
 }
 
-.cellStyle{}
+.tableHead {
+	text-transform: uppercase;
+	font-size: calc(.75rem);
+	font-weight: 600;
+	color: #9ca3af;
+}
+
+.cellStyle button{
+	margin: 0.6em;
+}

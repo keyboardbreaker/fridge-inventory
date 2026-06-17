@@ -73,18 +73,6 @@ const Fridge = () => {
 		void loadFridge();
 	}, [fridgeId]);
 
-	useEffect(() => {
-		const checkUser = async () => {
-			const {
-			data: { user },
-			} = await supabase.auth.getUser();
-
-			console.log("Current user:", user?.id);
-		}
-
-		checkUser();
-	}, []);
-
 	if (!fridge) return <Loader/>;
 
 	return (
@@ -120,14 +108,13 @@ const Fridge = () => {
 				)}
 
 				<div className={style.fridgeContainer}>
-					<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+					<table className={style.fridgeTable}>
 						<thead>
 							<tr style={{ backgroundColor: 'indigo',  }}>
-								<th className={style.cellStyle}>ID</th>
-								<th className={style.cellStyle}>Name</th>
-								<th className={style.cellStyle}>Status</th>
-								<th className={style.cellStyle}>Best before date</th>
-								<th className={style.cellStyle}>Delete?</th>
+								<th className={style.tableHead}>Name</th>
+								<th className={style.tableHead}>Status</th>
+								<th className={style.tableHead}>Best before date</th>
+								<th className={style.tableHead}>Delete?</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -136,7 +123,7 @@ const Fridge = () => {
 							)}
 							{fridge.food_items.map((item) => (
 								<tr key={fridge.id} style={{ borderBottom: '1px solid #ddd' }}>
-									<td className={style.cellStyle}>{item.id}</td>
+									{/* <td className={style.cellStyle}>{item.id}</td> */}
 									<td className={style.cellStyle}>{item.name}</td>
 									<td className={style.cellStyle}>{item.share_status}</td>
 									<td className={style.cellStyle}>{item.best_before_date}</td>

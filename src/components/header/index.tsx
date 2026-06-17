@@ -3,6 +3,7 @@ import { signOut } from '../../../utils/auth';
 import type { User } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import supabase from '../../../utils/supabase';
+import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = {
     user: User;
@@ -10,6 +11,11 @@ type HeaderProps = {
 
 const Header = ({ user } : HeaderProps) => {
     const [fullName, setFullName] = useState<string>("");
+    const navigate = useNavigate();
+
+    const homePage = () => {
+        navigate("/");
+    }
 
     useEffect(() => {
         async function getFullName() {
@@ -36,7 +42,7 @@ const Header = ({ user } : HeaderProps) => {
     return (
         <header className={style.header}> 
             <div className={style.headerContent}>
-                <h1>Fridge Inventory</h1>
+                <h1 onClick={homePage}>Fridge Inventory</h1>
 
                 <div className={style.userDetails}>
                     <span>Welcome: {fullName}</span>

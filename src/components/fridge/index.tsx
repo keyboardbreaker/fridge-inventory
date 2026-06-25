@@ -116,7 +116,7 @@ const Fridge = () => {
 			<Container>
 				<h1>{fridge.name}</h1>
 
-				<button
+				<button className={style.primaryButton}
 					onClick={() => setShowModal(true)}
 				>
 					Add New Food Item
@@ -162,13 +162,13 @@ const Fridge = () => {
 								<tr key={item.id} style={{ borderBottom: '1px solid #ddd' }}>
 									{/* <td className={style.cellStyle}>{item.id}</td> */}
 									<td className={style.cellStyle}>{item.name}</td>
-									<td className={style.cellStyle}>{item.share_status}</td>
+									<td><span className={`${style.badge} ${style[item.share_status]}`}>{item.share_status}</span></td>
 									<td className={style.cellStyle}>{item.best_before_date}</td>
 									<td>{item.owner ? 
-										`${item.owner.first_name} ${item.owner.last_name}` : ""}
+										`${item.owner.first_name} ${item.owner.last_name}`: (<span className={style.unknown}>No owner</span>)}
 									</td>
 									<td className={style.cellStyle}>
-										<button onClick={() => deleteFoodItem(item.id)}>Delete</button>
+										<button className={style.deleteButton} onClick={() => deleteFoodItem(item.id)}>Delete</button>
 									</td>
 								</tr>
 							))}

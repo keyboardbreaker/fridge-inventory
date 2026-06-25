@@ -7,18 +7,42 @@ import AddFoodForm from "../addFoodForm";
 import Container from "../container";
 
 type FoodItem = {
-  id: string;
-  name: string;
-  share_status: "private" | "shared" | "ask";
-  best_before_date: string | null;
-  quantity: number | null;
-  unit: string | null;
+	id: string;
+	name: string;
+	share_status: "private" | "shared" | "ask";
+	best_before_date: string | null;
+	quantity: number | null;
+	unit: string | null;
+	owner_id: string;
+	owner: {
+		first_name: string;
+		last_name: string;
+	} | null;
 };
 
 type FridgeWithFood = {
-  id: string;
-  name: string;
-  food_items: FoodItem[];
+	id: string;
+	name: string;
+	food_items: FoodItem[];
+};
+
+
+type FridgeResponse = {
+	id: string;
+	name: string;
+	food_items: {
+		id: string;
+		name: string;
+		share_status: "private" | "shared" | "ask";
+		best_before_date: string | null;
+		quantity: number | null;
+		unit: string | null;
+		owner_id: string;
+		owner: {
+		first_name: string;
+		last_name: string;
+		};
+	}[];
 };
 
 const Fridge = () => {
@@ -40,19 +64,31 @@ const Fridge = () => {
 					share_status,
 					best_before_date,
 					quantity,
-					unit
-				),
-				created_at
+					unit,
+					owner_id,
+					owner:profiles!food_items_owner_id_fkey (
+						first_name,
+						last_name
+					)
+				)
 			`)
 			.eq("id", fridgeId)
-			.single();
+			.single<FridgeResponse>();
 		
 		if(error) {
 			console.error(error);
 			return;
 		}
 
-		setFridge(data);
+		const transformedData: FridgeWithFood = {
+			...data,
+			food_items: data.food_items.map((item) => ({
+				...item,
+				owner: item.owner ?? null,
+			})),
+		};
+
+		setFridge(transformedData);
 	}
 
 	const deleteFoodItem =  async(foodItemId: string) => {
@@ -114,6 +150,7 @@ const Fridge = () => {
 								<th className={style.tableHead}>Name</th>
 								<th className={style.tableHead}>Status</th>
 								<th className={style.tableHead}>Best before date</th>
+								<th className={style.tableHead}>Item Owner</th>
 								<th className={style.tableHead}>Delete?</th>
 							</tr>
 						</thead>
@@ -122,11 +159,14 @@ const Fridge = () => {
 								<li>The fridge is empty</li>
 							)}
 							{fridge.food_items.map((item) => (
-								<tr key={fridge.id} style={{ borderBottom: '1px solid #ddd' }}>
+								<tr key={item.id} style={{ borderBottom: '1px solid #ddd' }}>
 									{/* <td className={style.cellStyle}>{item.id}</td> */}
 									<td className={style.cellStyle}>{item.name}</td>
 									<td className={style.cellStyle}>{item.share_status}</td>
 									<td className={style.cellStyle}>{item.best_before_date}</td>
+									<td>{item.owner ? 
+										`${item.owner.first_name} ${item.owner.last_name}` : ""}
+									</td>
 									<td className={style.cellStyle}>
 										<button onClick={() => deleteFoodItem(item.id)}>Delete</button>
 									</td>

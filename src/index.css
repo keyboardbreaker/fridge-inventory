@@ -27,6 +27,7 @@ body {
   padding: 0;
   position: relative;
   min-height: 100vh;
+  background: linear-gradient(180deg, #0f0f0f, #1a1a1a);
 }
 
 h1 {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signIn, signUp } from "../../../utils/auth";
+import { signIn } from "../../../utils/auth";
 import Container from "../container";
 import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -16,12 +16,6 @@ const Login = () => {
     const handleLogin = async () => {
         const { error } = await signIn(email, password);
         if (error) console.error(error)
-        else redirect("/home");
-    }
-
-    const handleSignup = async () => {
-        const { error } = await signUp(email, password);
-        if (error) console.error(error) 
         else redirect("/home");
     }
 

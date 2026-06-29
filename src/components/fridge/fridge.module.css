@@ -1,7 +1,23 @@
 .fridgeContainer {
-	border: 1px solid white;
 	list-style: none;
 	margin-top: 20px;
+	margin-inline: calc(4px * 10);
+	background: #1e1e1e;
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.fridgeTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.fridgeTable tr {  
+	transition: background 0.2s ease;
+}
+
+.fridgeTable tbody tr:hover {
+	background: rgba(255, 255, 255, 0.05);
 }
 
 .backdrop {
@@ -38,4 +54,72 @@ h2{
 	height: 100%;
 }
 
-.cellStyle{}
+.tableHead {
+	text-transform: uppercase;
+	font-size: calc(.75rem);
+	font-weight: 600;
+	color: #9ca3af;
+}
+
+.cellStyle {
+	padding: 16px;
+}
+
+.cellStyle button{
+	margin: 0.6em;
+}
+
+.badge {
+	padding: 4px 10px;
+	border-radius: 999px;
+	font-size: 12px;
+	text-transform: capitalize;
+}
+
+.private {
+	background: #444;
+	color: #ccc;
+}
+
+.shared {
+	background: #1f9d55;
+	color: white;
+}
+	
+.ask {
+	background: #f59e0b;
+	color: black;
+}
+
+.deleteButton {
+	background: transparent;
+	border: 1px solid #ff4d4f;
+	color: #ff4d4f;
+	border-radius: 6px;
+	padding: 6px 12px;
+	cursor: pointer;
+}
+
+.deleteButton:hover {
+	background: #ff4d4f;
+	color: white;
+}
+
+.primaryButton {
+	background: linear-gradient(135deg, #7c3aed, #9333ea);
+	border: none;
+	padding: 10px 16px;
+	border-radius: 8px;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+}
+	
+.primaryButton:hover {
+	opacity: 0.9;
+}
+
+.unknown {
+	color: #888;
+	font-style: italic;
+}

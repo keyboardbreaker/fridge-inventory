@@ -23,16 +23,50 @@ values
   )
 on conflict do nothing;
 
+insert into profiles (
+    id,
+    first_name,
+    last_name
+)
+values (
+    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    'John',
+    'Smith'
+)
+on conflict (id) do nothing;
+
+
 -- Sample food
 insert into food_items (
   fridge_id,
   owner_id,
   name,
-  share_status
+  share_status,
+  quantity,
+  unit
 )
-values (
+values
+(
   '11111111-1111-1111-1111-111111111111',
-  auth.uid(),
+  'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
   'Bread',
-  'shared'
+  'shared',
+  1,
+  'loaf'
+),
+(
+  '11111111-1111-1111-1111-111111111111',
+  'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+  'Milk',
+  'private',
+  2,
+  'L'
+),
+(
+  '11111111-1111-1111-1111-111111111111',
+  'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+  'Eggs',
+  'ask',
+  12,
+  'pcs'
 );

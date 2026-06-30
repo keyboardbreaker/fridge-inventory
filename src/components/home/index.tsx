@@ -41,7 +41,13 @@ const Home = () => {
               {fridges.map((fridge) => (
                   <li className={style.listItem} key={fridge.id}>
                       <Link to={`/fridge/${fridge.id}`}>
-                          {fridge.name}
+                          <div className={style.grid}>
+                            <div className={style.card}>
+                              <h3>{fridge.name}</h3>
+                              <p className={style.items}>12 items</p>
+                              <p className={style.updated}>Last updated 2h ago</p>
+                            </div>
+                          </div>
                       </Link>
                   </li>
               ))}

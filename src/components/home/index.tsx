@@ -33,7 +33,7 @@ const Home = () => {
         console.error(error);
         return;
       }
-      if (data) { //shorthand setFridges(data ?? []);
+      if (data) {
         const fridgeCards: FridgeCard[] = data.map((fridge) => {
           const itemCount = fridge.food_items.length;
 

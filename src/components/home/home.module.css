@@ -8,3 +8,46 @@
     justify-content: center;
     align-items: center;
 }
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;  
+    margin-top: 32px;
+}
+
+@media (min-width: 768px) {  /*  responsive (like md:grid-cols-2) */
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.card {
+    background-color: #1f2937;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+    cursor: pointer;  
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.6);
+}
+
+.card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.items {
+    color: #9ca3af; 
+    margin-top: 8px;
+}
+
+.updated {
+    color: #6b7280;
+}

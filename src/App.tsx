@@ -31,22 +31,25 @@ console.log(user?.id);
   return (
     <>
       {user && <Header user={user} />}
-      <Routes>
-        
-        {!user ? (
-          <>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="*" element={<Navigate to="/login" replace />} />
-          </>
-        ) : (
-          <>
-            <Route path="/" element={<Home />} />
-            <Route path="/fridge/:fridgeId" element={<Fridge />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </>
-        )}
-      </Routes>
+      <main>
+        <section>
+          <Routes>
+            {!user ? (
+              <>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="*" element={<Navigate to="/login" replace />} />
+              </>
+            ) : (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/fridge/:fridgeId" element={<Fridge />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </>
+            )}
+          </Routes>
+        </section>
+      </main>
     </>
   )
 }

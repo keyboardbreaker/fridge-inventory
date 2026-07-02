@@ -68,14 +68,14 @@ const Home = () => {
           </div>
         ) : (
           <>
-            <h1>Available Fridges</h1>
-            <p>Select which fridge you want to manage</p>
-            <ul>
+            <h1 className={style.heroTitle}>Available Fridges</h1>
+            <p>Select a Fridge</p>
+            <ul className={style.fridgeList}>
               {fridges.map((fridge) => (
                   <li className={style.listItem} key={fridge.id}>
                       <Link to={`/fridge/${fridge.id}`}>
                           <div className={style.grid}>
-                            <div className={style.card}>
+                            <button className={style.card}>
                               <h3>{fridge.name}</h3>
                               <p className={style.items}>{fridge.itemCount} item{fridge.itemCount !== 1 && "s"}</p>
                               <p className={style.updated}>
@@ -87,7 +87,7 @@ const Home = () => {
                                     ""
                                 }
                               </p>
-                            </div>
+                            </button>
                           </div>
                       </Link>
                   </li>

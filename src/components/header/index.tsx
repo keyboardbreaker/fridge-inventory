@@ -46,7 +46,7 @@ const Header = ({ user } : HeaderProps) => {
 
                 <div className={style.userDetails}>
                     <span>Welcome: {fullName}</span>
-                    <button onClick={signOut}>Logout</button>
+                    <button className={style.logout} onClick={signOut}>Logout</button>
                 </div>
                 <p>Manage your items without forgetting they exist </p>
             </div>

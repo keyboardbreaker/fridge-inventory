@@ -12,7 +12,8 @@ const user: User = {
 const mockNavigate = vi.fn();
 
 vi.mock('react-router-dom', async () => {
-    const actual = await vi.importActual('react-router-dom');
+    const actual = await vi
+        .importActual<typeof import('react-router-dom')>('react-router-dom');
 
     return {
         ...actual,
@@ -20,19 +21,49 @@ vi.mock('react-router-dom', async () => {
     };
 });
 
+vi.mock('../../../utils/supabase', () => ({
+    default: {
+        from: vi.fn(() => ({
+            select: vi.fn(() => ({
+                eq: vi.fn(() => ({
+                    single: vi.fn().mockResolvedValue({
+                        data: {
+                            first_name: 'fiona',
+                            last_name: 'bruce',
+                        },
+                        error: null,
+                    }),
+                })),
+            })),
+        })),
+    }
+}));
+
+const renderHeader = () => {
+    return render(
+        <MemoryRouter>
+            <Header user={user} />
+        </MemoryRouter>
+    );
+};
+
 describe('Header', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+
     it('renders title', () => {
-        render(<Header user={user} />)
+        renderHeader();
 
         expect(
-            screen.getByText(
-                'Fridge Inventory'
-            )
+        screen.getByRole('heading', {
+            name: 'Fridge Inventory',
+        })
         ).toBeInTheDocument();
     });
 
     it('renders subtitle', () => {
-        render(<Header user={user} />);
+        renderHeader();
 
         expect(
             screen.getByText(
@@ -41,12 +72,16 @@ describe('Header', () => {
         ).toBeInTheDocument();
     });
 
+    it('renders user full name', async () => {
+        renderHeader();
+
+        expect(
+        await screen.findByText(/fiona bruce/)
+        ).toBeInTheDocument();
+    });
+
     it('navigates home', async () => {
-        render(
-            <MemoryRouter>
-                <Header user={user} />
-            </MemoryRouter>
-        );
+        renderHeader();
 
         await userEvent.click(
             screen.getByText('Fridge Inventory')

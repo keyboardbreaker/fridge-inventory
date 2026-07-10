@@ -110,10 +110,8 @@ const Fridge = () => {
 	}, [fridgeId]);
 
 	if (!fridge) return (
-		<div role="status" aria-label="Loading" className={style.loaderContainer}>
-            <Loader/>
-		</div>);
-
+		<Loader/>
+	)
 	return (
 		<>
 			<Container>

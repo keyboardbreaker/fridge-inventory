@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import supabase from '../../../utils/supabase';
-import { Link } from 'react-router';
+import { Link } from "react-router-dom";
 import Loader from '../loader';
 import Container from '../container';
 import style from "./home.module.css";
@@ -14,56 +14,61 @@ type FridgeCard = {
 };
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
 	const [fridges, setFridges] = useState<FridgeCard[]>([]);
 
   useEffect(() => {
     async function getFridges() {
-      const { data, error } = await supabase
-        .from("fridges")
-        .select(`
-          id,
-          name,
-          food_items (
+      try {
+        const { data, error } = await supabase
+          .from("fridges")
+          .select(`
             id,
-            created_at
-          )
-        `);
+            name,
+            food_items (
+              id,
+              created_at
+            )
+          `);
         
-      if (error) {
-        console.error(error);
-        return;
-      }
-      if (data) {
-        const fridgeCards: FridgeCard[] = data.map((fridge) => {
-          const itemCount = fridge.food_items.length;
+        if (error) {
+          console.error(error);
+          return;
+        }
+        if (data) {
+          console.log(data);
+          const fridgeCards: FridgeCard[] = data.map((fridge) => {
+            const itemCount = fridge.food_items.length;
 
-          const lastUpdated = fridge.food_items.length > 0 ?
-            fridge.food_items.reduce((latest, item) => {
-              if(!latest) return item.created_at;
+            const lastUpdated = fridge.food_items.length > 0 ?
+              fridge.food_items.reduce((latest, item) => {
+                if(!latest) return item.created_at;
 
-              return new Date(item.created_at) > new Date(latest) ?
-                item.created_at :
-                latest;
-            }, null as string | null) : null;
+                return new Date(item.created_at) > new Date(latest) ?
+                  item.created_at :
+                  latest;
+              }, null as string | null) : null;
 
-            return {
-              id: fridge.id,
-              name: fridge.name,
-              itemCount,
-              lastUpdated
-            }
-        });
-        setFridges(fridgeCards);
+              return {
+                id: fridge.id,
+                name: fridge.name,
+                itemCount,
+                lastUpdated
+              }
+          });
+          setFridges(fridgeCards);
+        }
+      } finally {
+        setLoading(false);
       }
     }
-
     getFridges()
   }, [])
   return (
 		<Container>
       {
-        fridges.length === 0 ? (
-          <div className={style.loaderContainer}>
+        loading ? (
+          <div role="status" aria-label="Loading" className={style.loaderContainer}>
             <Loader/>
           </div>
         ) : (

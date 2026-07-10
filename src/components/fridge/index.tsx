@@ -109,7 +109,10 @@ const Fridge = () => {
 		void loadFridge();
 	}, [fridgeId]);
 
-	if (!fridge) return <Loader/>;
+	if (!fridge) return (
+		<div role="status" aria-label="Loading" className={style.loaderContainer}>
+            <Loader/>
+		</div>);
 
 	return (
 		<>

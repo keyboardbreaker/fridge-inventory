@@ -68,7 +68,7 @@ const Home = () => {
 		<Container>
       {
         loading ? (
-          <div className={style.loaderContainer}>
+          <div role="status" aria-label="Loading" className={style.loaderContainer}>
             <Loader/>
           </div>
         ) : (

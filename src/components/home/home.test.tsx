@@ -34,6 +34,12 @@ describe("Home", () => {
         })
     });
 
+    it("shows loader initially", () => {
+        renderWithRouter(<Home />);
+
+        expect(screen.getByRole("status")).toBeInTheDocument();
+    });
+
     it("renders the page title", async () => {
         renderWithRouter(<Home />);
 

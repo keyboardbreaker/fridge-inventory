@@ -123,3 +123,10 @@ h2{
 	color: #888;
 	font-style: italic;
 }
+
+.loaderContainer {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

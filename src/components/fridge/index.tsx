@@ -109,8 +109,9 @@ const Fridge = () => {
 		void loadFridge();
 	}, [fridgeId]);
 
-	if (!fridge) return <Loader/>;
-
+	if (!fridge) return (
+		<Loader/>
+	)
 	return (
 		<>
 			<Container>

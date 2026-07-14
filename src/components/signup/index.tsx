@@ -24,9 +24,10 @@ const Signup = () => {
             await supabase
                 .from("profiles")
                 .insert({
-                id: data.user.id,
-                first_name: firstName,
-                last_name: lastName,
+                    id: data.user.id,
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email
                 });
             }
 

@@ -26,12 +26,14 @@ on conflict do nothing;
 insert into profiles (
     id,
     first_name,
-    last_name
+    last_name,
+    email
 )
 values (
     'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
     'John',
-    'Smith'
+    'Smith',
+    'john@example.com'
 )
 on conflict (id) do nothing;
 

@@ -7,16 +7,18 @@ const main = async () => {
     // console.log(items);
 
     for (const item of items) {
-        if (!item.owner!.email_notifications)
+        if (
+            !item.owner ||
+            !item.owner.email_notifications ||
+            !item.best_before_date
+        ) {
             continue;
-
-        if (!item.best_before_date)
-            continue;
+        }
 
         if (
             shouldNotify(
                 item.best_before_date,
-                item.owner!.notify_days_before
+                item.owner.notify_days_before
             )
         ) {
             console.log(

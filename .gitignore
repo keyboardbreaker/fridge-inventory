@@ -1,7 +1,9 @@
 apps/web/node_modules
 apps/expiry-notifier/node_modules
+/node_modules
 apps/expiry-notifier/.env
 .env.local
 .DS_Store
 ReadME2.md
+ReadME3.md
 package-lock.json

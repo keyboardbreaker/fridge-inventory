@@ -4,10 +4,12 @@ import type { QueryData } from "@supabase/supabase-js";
 const query = supabase
     .from("food_items")
     .select(`
+        id,
         name,
         share_status,
         best_before_date,
         owner:profiles!food_items_owner_id_fkey (
+            id,
             first_name,
             email,
             email_notifications,

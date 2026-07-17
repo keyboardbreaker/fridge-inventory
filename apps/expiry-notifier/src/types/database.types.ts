@@ -132,6 +132,33 @@ export type Database = {
         }
         Relationships: []
       }
+      notification_history: {
+        Row: {
+          food_item_id: string
+          id: string
+          notification_type: string
+          profile_id: string
+          recipient_email: string
+          sent_at: string
+        }
+        Insert: {
+          food_item_id: string
+          id?: string
+          notification_type: string
+          profile_id: string
+          recipient_email: string
+          sent_at?: string
+        }
+        Update: {
+          food_item_id?: string
+          id?: string
+          notification_type?: string
+          profile_id?: string
+          recipient_email?: string
+          sent_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null
